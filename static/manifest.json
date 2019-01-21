@@ -15,6 +15,6 @@
   ],
   "start_url": "/howler-player/index.html",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
   "theme_color": "#bb71f3"
 }
