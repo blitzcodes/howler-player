@@ -1,4 +1,4 @@
-import './Player.css'
+import './Player.scss'
 import { Howl, Howler } from 'howler'
 // import { once, throttle } from 'lodash'
 
@@ -8,104 +8,110 @@ export default {
   name: 'Player',
   data () {
     return {
-      sound: null,
+      player: null,
+      track: {
+        title: 'SJ Homer - Blitz Rock',
+        files: ['/static/audio/blitz.mp3'],
+        seek: 0,
+        duration: '',
+        progress: 0,
+      },
+      status: {
+        paused: true,
+        playing: false,
+      },
     }
   },
-  mounted: function () {
-    const { duration, bar, loading, pauseBtn, track } = this.$refs
-    track.innerHTML = 'SJ Homer - Blitz Rock'
-
-    this.sound = new Howl({
-      src: ['/static/audio/blitz.mp3'],
+  mounted () {
+    this.player = new Howl({
+      src: this.track.files,
       html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-      onplay: () => {
-        // Display the duration.
-        duration.innerHTML = this.formatTime(Math.round(this.sound.duration()))
-
-        // Start updating the progress of the track.
-        requestAnimationFrame(this.step.bind(this))
-
-        // Start the wave animation if we have already loaded
-        // wave.container.style.display = 'block'
-        bar.style.display = 'none'
-        pauseBtn.style.display = 'block'
-      },
-      onload: () => {
-        // Start the wave animation.
-        // wave.container.style.display = 'block'
-        bar.style.display = 'none'
-        loading.style.display = 'none'
-      },
-      onend: () => {
-        // Stop the wave animation.
-        // wave.container.style.display = 'none'
-        bar.style.display = 'block'
-        self.skip('next')
-      },
-      onpause: () => {
-        // Stop the wave animation.
-        // wave.container.style.display = 'none'
-        bar.style.display = 'block'
-      },
-      onstop: () => {
-        // Stop the wave animation.
-        // wave.container.style.display = 'none'
-        bar.style.display = 'block'
-      },
-      onseek: () => {
-        // Start upating the progress of the track.
-        requestAnimationFrame(this.step.bind(this))
-      },
+      onplay: this.onPlay,
+      onload: this.onLoad,
+      onend: this.onEnd,
+      onpause: this.onPause,
+      onstop: this.onStop,
+      onseek: this.onSeek,
     })
   },
   methods: {
-    play: function () {
-      const { pauseBtn, playBtn } = this.$refs
+    onPlay () {
+      // Display the duration.
+      this.track.duration = this.formatTime(Math.round(this.player.duration()))
 
-      // Pause the sound.
-      this.sound.play()
+      // Start updating the progress of the track.
+      requestAnimationFrame(this.step.bind(this))
+
+      // Start the wave animation if we have already loaded
+      // wave.container.style.display = 'block'
+      this.status.playing = true
+      this.status.paused = false
+    },
+    onLoad () {
+      const { loading } = this.$refs
+
+      loading.style.display = 'none'
+    },
+    onEnd () {
+      const { status, track, player } = this
+
+      status.playing = false
+      status.paused = true
+
+      track.seek = 0
+      track.duration = ''
+      track.progress = 0
+
+      player.stop()
+    },
+    onPause () {
+      const { status } = this
 
       // Show the play button.
-      playBtn.style.display = 'none'
-      pauseBtn.style.display = 'block'
+      status.playing = false
+      status.paused = true
     },
-    pause: function () {
-      const { pauseBtn, playBtn } = this.$refs
-
+    onStop () {
+    },
+    onSeek () {
+      // Start upating the progress of the track.
+      requestAnimationFrame(this.step.bind(this))
+    },
+    play () {
       // Pause the sound.
-      this.sound.pause()
-
-      // Show the play button.
-      playBtn.style.display = 'block'
-      pauseBtn.style.display = 'none'
+      this.player.play()
     },
-    step: function () {
-      const { timer, progress } = this.$refs
+    pause () {
+      // Pause the sound.
+      this.player.pause()
+    },
+    step () {
+      // const { timer, progress } = this.$refs
       // Get the Howl we want to manipulate.
-      const { sound } = this
+      const { player, track } = this
 
       // Determine our current seek position.
-      let seek = sound.seek() || 0
-      timer.innerHTML = this.formatTime(Math.round(seek))
-      progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%'
+      let seek = player.seek() || 0
+      track.seek = this.formatTime(Math.round(seek))
+      track.progress = (((seek / player.duration()) * 100) || 0)
 
       // If the sound is still playing, continue stepping.
-      if (sound.playing()) {
+      if (player.playing()) {
         requestAnimationFrame(this.step.bind(this))
       }
     },
-    seek: function (e) {
+    seek (e) {
       // Get the Howl we want to manipulate.
-      const { sound } = this
+      const { player } = this
 
       // Convert the percent into a seek position.
-      if (sound.playing()) {
-        sound.seek(sound.duration() * (e.clientX / window.innerWidth))
+      if (player.playing()) {
+        player.seek(player.duration() * (e.clientX / window.innerWidth))
       }
 
       this.step()
     },
-    volume: function (e) {
+    volume (e) {
       const { barFull, sliderBtn, barEmpty } = this.$refs
 
       const x = e.clientX || e.touches[0].clientX
@@ -127,18 +133,27 @@ export default {
     },
     toggleVolume: function () {
       const { volume } = this.$refs
-      const display = (volume.style.display === 'block') ? 'none' : 'block'
+      const slidingIn = volume.classList.contains('slideIn')
 
-      volume.className = (display === 'block') ? 'fadein' : 'fadeout'
-      setTimeout(function () {
-        volume.style.display = display
-      }, (display === 'block') ? 0 : 500)
+      setTimeout(() => {
+        volume.classList.toggle('slideIn', !slidingIn)
+      }, 100)
     },
     formatTime: function (secs) {
       let minutes = Math.floor(secs / 60) || 0
       let seconds = (secs - minutes * 60) || 0
 
       return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+    },
+  },
+  computed: {
+    timer () {
+      return this.track.seek || '0:00'
+    },
+    progress () {
+      return {
+        width: `${this.track.progress}%`,
+      }
     },
   },
 }

@@ -77,7 +77,7 @@
   position: absolute;
   width: 100%;
   height: 70px;
-  bottom: 3%;
+  bottom: 5%;
 }
 
 .controlsInner {
@@ -116,7 +116,6 @@
   height: 70px;
   left: 50%;
   margin: auto -34.5px;
-  display: none;
 }
 
 #prevBtn {
@@ -207,7 +206,7 @@
   border-radius: 100%;
   -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
   animation: sk-scaleout 1.0s infinite ease-in-out;
-  display: none;
+  /*display: none;*/
 }
 
 @-webkit-keyframes sk-scaleout {
@@ -286,12 +285,42 @@
   height: 100%;
   position: absolute;
   top: 0;
-  left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   touch-action: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  display: none;
+  transform: translateX(-100%);
+  transition: all .5s;
+}
+
+/* Fade-In */
+#volume.slideIn {
+  /*webkit-animation: 1s slideIn 1 paused;*/
+  /*-ms-animation: 1s slideIn 1 paused;*/
+  /*animation: 1s ease-out 1s 1 paused slideIn;*/
+  transform: translateX(0%);
+}
+
+.slideOut {
+  animation: 3s ease-out 1s 2 reverse both paused slideOut;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 .bar {
@@ -330,15 +359,15 @@
 
 /* Fade-In */
 .fadeout {
-  webkit-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
+  webkit-animation: fadeout 1s;
+  -ms-animation: fadeout 1s;
+  animation: fadeout 1s;
 }
 
 .fadein {
-  webkit-animation: fadein 0.5s;
-  -ms-animation: fadein 0.5s;
-  animation: fadein 0.5s;
+  webkit-animation: fadein 1s;
+  -ms-animation: fadein 1s;
+  animation: fadein 1s;
 }
 
 @keyframes fadein {
