@@ -1,6 +1,6 @@
 {
-  "name": "content-player",
-  "short_name": "content-player",
+  "name": "howler-player",
+  "short_name": "howler-player",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",
