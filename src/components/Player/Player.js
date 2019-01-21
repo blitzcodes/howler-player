@@ -13,10 +13,11 @@ export default {
         title: 'SJ Homer - Blitz Rock',
         files: ['static/audio/blitz.mp3'],
         seek: 0,
-        duration: '',
+        duration: '0:00',
         progress: 0,
       },
       status: {
+        loading: true,
         paused: true,
         playing: false,
       },
@@ -36,9 +37,6 @@ export default {
   },
   methods: {
     onPlay () {
-      // Display the duration.
-      this.track.duration = this.formatTime(Math.round(this.player.duration()))
-
       // Start updating the progress of the track.
       requestAnimationFrame(this.step.bind(this))
 
@@ -48,9 +46,10 @@ export default {
       this.status.paused = false
     },
     onLoad () {
-      const { loading } = this.$refs
+      this.status.loading = false
 
-      loading.style.display = 'none'
+      // Display the duration.
+      this.track.duration = this.formatTime(Math.round(this.player.duration()))
     },
     onEnd () {
       const { status, track, player } = this
@@ -59,7 +58,7 @@ export default {
       status.paused = true
 
       track.seek = 0
-      track.duration = ''
+      // track.duration = '0:00'
       track.progress = 0
 
       player.stop()
@@ -74,7 +73,7 @@ export default {
     onStop () {
     },
     onSeek () {
-      // Start upating the progress of the track.
+      // Start updating the progress of the track.
       requestAnimationFrame(this.step.bind(this))
     },
     play () {

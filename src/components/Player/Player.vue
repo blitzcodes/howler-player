@@ -3,14 +3,17 @@
     <!-- Top Info -->
     <div id="title">
       <span ref="track" id="track">{{ track.title }}</span>
-      <div ref="timer" id="timer">{{ timer }}</div>
-      <div ref="duration" id="duration">{{ track.duration }}</div>
+      <div v-show="!status.loading" id="timing">
+        <span ref="timer" id="timer">{{ timer }}</span>
+        <span>/</span>
+        <span ref="duration" id="duration">{{ track.duration }}</span>
+      </div>
     </div>
 
     <!-- Controls -->
     <div class="controlsOuter">
       <div class="controlsInner">
-        <div ref="loading" id="loading"></div>
+        <div v-show="status.loading" ref="loading" id="loading"></div>
         <div v-show="status.paused" ref="playBtn" @click="play" class="btn" id="playBtn"></div>
         <div v-show="status.playing" ref="pauseBtn" @click="pause" class="btn" id="pauseBtn"></div>
       </div>

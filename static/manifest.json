@@ -1,5 +1,5 @@
 {
-  "name": "howler-player",
+  "name": "SJ Homer Howler Player",
   "short_name": "howler-player",
   "icons": [
     {
@@ -16,5 +16,5 @@
   "start_url": "/howler-player/index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "theme_color": "#bb71f3"
 }

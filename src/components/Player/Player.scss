@@ -1,7 +1,7 @@
 .player {
-  width: 100vw;
-  height: 94vh;
-  padding: 0;
+  width: 100%;
+  height: 88vh;
+  padding: 4vh 0 0;
   margin: 0;
   overflow: hidden;
   background: #bb71f3;
@@ -10,10 +10,50 @@
   background: linear-gradient(135deg, #bb71f3 0%, #3d4d91 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bb71f3', endColorstr='#3d4d91', GradientType=1);
   font-family: "Helvetica Neue", "Futura", "Trebuchet MS", Arial;
-  -webkit-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   position: relative;
+}
+
+#title {
+  color: #ffffff;
+  font-weight: 300;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+    display: flex;
+  }
+
+  #track {
+    font-size: 34px;
+    opacity: 0.9;
+    padding: 0 1rem;
+
+    @media (min-width: 768px) {
+      flex: 2 0 auto;
+    }
+  }
+
+  #timing {
+    padding: 0 1rem;
+    font-size: 26px;
+
+    @media (min-width: 768px) {
+      text-align: right;
+      flex: 1 0 auto;
+    }
+  }
+
+  #timer {
+    opacity: 0.9;
+  }
+
+  #duration {
+    opacity: 0.5;
+  }
 }
 
 #seekPanel {
@@ -31,45 +71,6 @@
 
 #bar, #title, .controlsOuter, #volume {
   z-index: 2;
-}
-
-/* Top Info */
-#title {
-  position: absolute;
-  width: 100%;
-  top: 3%;
-  line-height: 34px;
-  height: 34px;
-  text-align: center;
-  font-size: 34px;
-  opacity: 0.9;
-  font-weight: 300;
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
-}
-
-#timer {
-  position: absolute;
-  top: 0;
-  left: 3%;
-  text-align: left;
-  font-size: 26px;
-  opacity: 0.9;
-  font-weight: 300;
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
-}
-
-#duration {
-  position: absolute;
-  top: 0;
-  right: 3%;
-  text-align: right;
-  font-size: 26px;
-  opacity: 0.5;
-  font-weight: 300;
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
 }
 
 /* Controls */
@@ -289,8 +290,8 @@
   touch-action: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  transform: translateX(-100%);
-  transition: all .5s;
+  transform: translateX(-125%);
+  transition: all .75s;
 }
 
 /* Fade-In */
@@ -299,10 +300,6 @@
   /*-ms-animation: 1s slideIn 1 paused;*/
   /*animation: 1s ease-out 1s 1 paused slideIn;*/
   transform: translateX(0%);
-}
-
-.slideOut {
-  animation: 3s ease-out 1s 2 reverse both paused slideOut;
 }
 
 @keyframes slideIn {
@@ -314,14 +311,6 @@
   }
 }
 
-@keyframes slideOut {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
 
 .bar {
   position: absolute;
@@ -345,81 +334,14 @@
 }
 
 #sliderBtn {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  top: 50%;
-  left: 93.25%;
+  top: 51%;
+  left: 83%;
   margin: -25px auto;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 1);
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.33);
   border-radius: 25px;
   cursor: pointer;
-}
-
-/* Fade-In */
-.fadeout {
-  webkit-animation: fadeout 1s;
-  -ms-animation: fadeout 1s;
-  animation: fadeout 1s;
-}
-
-.fadein {
-  webkit-animation: fadein 1s;
-  -ms-animation: fadein 1s;
-  animation: fadein 1s;
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeout {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes fadeout {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@-ms-keyframes fadeout {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
 }

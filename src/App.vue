@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <span>Howler JS Sampler. Music &copy; SJ Homer 2018.</span>
+      <span>Music &copy; SJ Homer 2018.</span>
     </header>
     <main>
       <router-view></router-view>
@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 body {
   margin: 0;
 }
@@ -34,7 +34,7 @@ main {
 
 header {
   margin: 0;
-  height: 56px;
+  height: 8vh;
   padding: 0 16px 0 24px;
   background-color: #35495E;
   color: #ffffff;
@@ -49,5 +49,10 @@ header span {
   font-weight: 400;
   box-sizing: border-box;
   padding-top: 16px;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+  }
 }
 </style>
