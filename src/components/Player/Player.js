@@ -11,7 +11,7 @@ export default {
       player: null,
       track: {
         title: 'SJ Homer - Blitz Rock',
-        files: ['/static/audio/blitz.mp3'],
+        files: ['static/audio/blitz.mp3'],
         seek: 0,
         duration: '',
         progress: 0,
