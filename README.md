@@ -1,6 +1,8 @@
-# content-player
+# howler-player
 
-> A Vue.js project
+> A Vue component build of the Howler JS player.
+
+Original music copyright SJ Homer 2018.
 
 ## Build Setup
 

@@ -100,7 +100,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
     // service worker caching
     new SWPrecacheWebpackPlugin({
-      cacheId: 'content-player',
+      cacheId: 'howler-player',
       filename: 'service-worker.js',
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: true,

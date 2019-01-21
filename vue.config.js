@@ -3,6 +3,6 @@ module.exports = {
     disableHostCheck: true,
   },
   baseUrl: process.env.NODE_ENV === 'production'
-    ? '/content-player/'
+    ? '/howler-player/'
     : '/',
 };

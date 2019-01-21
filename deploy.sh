@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-readonly __gitPath=git@github.com:blitzcodes/content-player.git
+readonly __gitPath=git@github.com:blitzcodes/howler-player.git
 
 # abort on errors
 set -e
